@@ -2,6 +2,26 @@
 
 import PySimpleGUI as sgui
 
+sgui.theme_add_new("Spotify", {
+    "BACKGROUND": "#121212",
+    "TEXT": "#FFFFFF",
+    "INPUT": "#282828",
+    "TEXT_INPUT": "#FFFFFF",
+    "SCROLL": "#282828",
+    "BUTTON": ("#000000", "#1DB954"),   # (text colour, button colour)
+    "PROGRESS": ("#1DB954", "#282828"),
+    "BORDER": 0,
+    "SLIDER_DEPTH": 0,
+    "PROGRESS_DEPTH": 0,
+})
+sgui.theme("Spotify")
+sgui.set_options(
+    use_custom_titlebar=True,
+    titlebar_background_color="#121212",
+    titlebar_text_color="#1DB954",
+    titlebar_font=("Helvetica", 11, "bold"),
+)
+
 home_screen = [
     [sgui.Text("Welcome to the Home Screen!")],
     [sgui.Button("Login")],
