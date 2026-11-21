@@ -10,17 +10,24 @@ home_screen = [
 
 login_screen = [
     [sgui.Text("Please enter your login credentials:")],
-    [sgui.Text("Username:"), sgui.Input(key="username")],
-    [sgui.Text("Password:"), sgui.Input(key="password", password_char="*")],
-    [sgui.Button("Submit"), sgui.Button("Back")]
+    [sgui.Text("Username:")],
+    [sgui.Input(key="username")],
+    [sgui.Text("Password:")],
+    [sgui.Input(key="password", password_char="*")],
+    [sgui.Button("Submit")],
+    [sgui.Button("Back")]
 ]
 
-layout = [[
-    sgui.pin(sgui.Column(home_screen, key="HOME", visible=True)),
-    sgui.pin(sgui.Column(login_screen, key="LOGIN", visible=False))
-]]
+layout = [
+    [sgui.VPush()],
+    [
+    sgui.pin(sgui.Column(home_screen, key="HOME", visible=True, element_justification="center")),
+    sgui.pin(sgui.Column(login_screen, key="LOGIN", visible=False, element_justification="center"))
+],
+[sgui.VPush()],
+]
 
-window = sgui.Window("SpotiRick", layout, size=(300, 750), resizable=True, finalize=True)
+window = sgui.Window("SpotiRick", layout, size=(300, 500), resizable=True, finalize=True, element_justification="c")
 
 def show_screen(name):
     for screen in ("HOME", "LOGIN"):
