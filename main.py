@@ -2,26 +2,29 @@
 
 import PySimpleGUI as sgui
 
-#Home Window Function
-def home_window():
-    layout = [
-        [sgui.Text("Welcome to SpotiRick")],
-        [sgui.Button("Login")],
-        [sgui.Button("Exit")]
-    ]
-    return sgui.Window("SpotiRick", layout, size=(300, 500), resizable=True, finalize=True)
+home_screen = [
+    [sgui.Text("Welcome to the Home Screen!")],
+    [sgui.Button("Login")],
+    [sgui.Button("Exit")]
+]
 
-def login_window():
-    layout = [
-        [sgui.Text("Login to SpotiRick")],
-        [sgui.Text("Username"), sgui.Input(key="username")],
-        [sgui.Text("Password"), sgui.Input(key="password", password_char="*")],
-        [sgui.Button("Submit"), sgui.Button("Back")]
-    ]
-    return sgui.Window("Login", layout, size=(300, 500), resizable=True, finalize=True)
+login_screen = [
+    [sgui.Text("Please enter your login credentials:")],
+    [sgui.Text("Username:"), sgui.Input(key="username")],
+    [sgui.Text("Password:"), sgui.Input(key="password", password_char="*")],
+    [sgui.Button("Submit"), sgui.Button("Back")]
+]
 
-#making the home window
-window = home_window()
+layout = [[
+    sgui.pin(sgui.Column(home_screen, key="HOME", visible=True)),
+    sgui.pin(sgui.Column(login_screen, key="LOGIN", visible=False))
+]]
+
+window = sgui.Window("SpotiRick", layout, size=(300, 750), resizable=True, finalize=True)
+
+def show_screen(name):
+    for screen in ("HOME", "LOGIN"):
+        window[screen].update(visible=(screen == name))
 #main loop
 while True:
     event, values = window.read()
@@ -29,11 +32,10 @@ while True:
     if event == sgui.WINDOW_CLOSED or event == "Exit":
         break
     elif event == "Login":
-        window.close()
-        window = login_window()
+        show_screen("LOGIN")
     elif event == "Back":
-        window.close()
-        window = home_window()
+        window["password"].update("")
+        show_screen("HOME")
     elif event == "Submit":
         username = values["username"]
         password = values["password"]
